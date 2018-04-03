@@ -98,13 +98,17 @@ create_tx_spec(InitiatorPubKey, ParticipantPubKey, Spec0, State) ->
       initiator_amount   => maps:get(initiator_amount, Spec),
       participant        => ParticipantPubKey,
       participant_amount => maps:get(participant_amount, Spec),
+      push_amount        => maps:get(push_amount, Spec),
       lock_period        => maps:get(lock_period, Spec),
+      channel_reserve    => maps:get(channel_reserve, Spec),
       fee                => maps:get(fee, Spec),
       nonce              => maps:get(nonce, Spec)}.
 
 create_tx_default_spec(InitiatorPubKey, State) ->
     #{initiator_amount   => 50,
       participant_amount => 50,
+      push_amount        => 0,
       lock_period        => 100,
+      channel_reserve    => 10,
       fee                => 3,
       nonce              => try next_nonce(InitiatorPubKey, State) catch _:_ -> 0 end}.
